@@ -84,46 +84,125 @@ class HomePage extends StatelessWidget {
     return SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        //  mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget> [
-            const Text(
-                  "Home Page",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            SubHeading(SubHeadingText: "Categories",),
+            SizedBox(height: 8),
+            SubHeading(SubHeadingText: "Popular Cakes"),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Chocolate", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                  SizedBox(width: 8),
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Vanilla", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                  SizedBox(width: 8),
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Butter", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                    SizedBox(width: 8),
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Cup Cake", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                  SizedBox(width: 8),
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Choco-vanilla", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                  SizedBox(width: 8),
+                  CakeCardDesign(
+                    CakeCardSize(CakeName: "Chocolate", CakePrice: "₹299", imagePath: 'assets/pink_cake.jpg'),
+                  ),
+                  SizedBox(width: 8),
+                ],
               ),
-              const Text("Welcome to Homemade Cakes",),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Card( elevation: 4, child: SampleCardSize(),),
-                    SizedBox(width: 8), // space between cards
-                    Card( elevation: 4, child: SampleCardSize(),),
-                    SizedBox(width: 8), // space between cards
-                    Card( elevation: 4, child: SampleCardSize(),),
-                    SizedBox(width: 8), // space between cards
-                    Card( elevation: 4, child: SampleCardSize(),),
-                    SizedBox(width: 8), // space between cards
-                    Card( elevation: 4, child: SampleCardSize(),),
-                  ],
-                ),
-              ),
-            const SizedBox(height: 12),
-            CakeCard(),
-            const SizedBox(height: 10),
-            SampleCardSize(),
-            const SizedBox(height: 16, width: 16),
-            SampleCardSize(),
-            const SizedBox(height: 16, width: 16),
-            SampleCardSize(),
-            const SizedBox(height: 16, width: 16),
+            ),
+            SizedBox(height: 8),
+            SubHeading(SubHeadingText: "Explore More"),
+            SizedBox(height: 8),
           ],
         ),
       );
   }
 }
 
+class SubHeading extends StatelessWidget{
+  const SubHeading({super.key, required this.SubHeadingText});
+  final String SubHeadingText;
+
+  @override
+  Widget build(BuildContext context){
+    return Text(
+          SubHeadingText,
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class CakeCardDesign extends StatelessWidget{
+  final Widget child;
+  const CakeCardDesign(this.child, {super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return Card(
+        elevation: 4,
+        color: Colors.pink.shade50,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // Rounded corners
+        ),
+        child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: child,
+        ),
+    );
+  }
+}
+
+class CakeCardSize extends StatelessWidget {
+  const CakeCardSize({super.key, required this.CakeName, required this.CakePrice, required this.imagePath});
+  final String CakeName;
+  final String CakePrice;
+  final String imagePath;
+
+  @override
+  Widget build(BuildContext context){
+    return SizedBox(
+      width: 130,
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRect(
+           // borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              imagePath,
+              width: 120,
+              height: 120,
+              fit: BoxFit.cover, // Keeps image size uniform
+            ),
+          ),
+        //  Image(image: AssetImage(imagePath)),
+          const SizedBox(height: 8),
+          Text(CakeName, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.start
+              ),
+          const SizedBox(height: 4),
+          Text(CakePrice, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start
+              ),
+        ],
+      ),
+    );
+  }
+}
 
 class OrdersPage extends StatelessWidget {
   @override
@@ -139,39 +218,39 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-
-class CakeCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      color: Colors.pink.shade50,
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Cake of the Day', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Text('Try our special chocolate fudge cake!'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SampleCardSize extends StatelessWidget {
-  @override
-  Widget build(BuildContext context){
-    return SizedBox(
-      width: 180,
-      height: 240,
-      child: Center(
-        child: Text("New Card"),
-      ),
-    );
-  }
-}
+//
+// class CakeCard extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       elevation: 4,
+//       color: Colors.pink.shade50,
+//       child: Padding(
+//         padding: EdgeInsets.all(16.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text('Cake of the Day', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+//             Text('Try our special chocolate fudge cake!'),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class SampleCardSize extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context){
+//     return SizedBox(
+//       width: 180,
+//       height: 240,
+//       child: Center(
+//         child: Text("New Card"),
+//       ),
+//     );
+//   }
+// }
 
 //
 // import 'package:flutter/material.dart';
