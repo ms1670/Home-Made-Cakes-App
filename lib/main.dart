@@ -88,6 +88,23 @@ class HomePage extends StatelessWidget {
         //  mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget> [
             SubHeading(SubHeadingText: "Categories",),
+
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CakeCatCard(CatName: "Kids"),
+                  CakeCatCard(CatName: "Cup Cake"),
+                  CakeCatCard(CatName: "Chocolate"),
+                  CakeCatCard(CatName: "Strawberry"),
+                  CakeCatCard(CatName: "Vennila"),
+                  CakeCatCard(CatName: "Starts"),
+                  CakeCatCard(CatName: "Butter"),
+                ],
+              ),
+            ),
+
             SizedBox(height: 8),
             SubHeading(SubHeadingText: "Popular Cakes"),
             SingleChildScrollView(
@@ -126,6 +143,27 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 8),
             SubHeading(SubHeadingText: "Explore More"),
             SizedBox(height: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4,
+                  childAspectRatio: 0.65,
+                  children: [
+                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Chocolate', CakePrice: '₹299', CakeMRPPrice: '₹349',),
+                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Vanilla', CakePrice: '₹199', CakeMRPPrice: '₹349',),
+                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Strawberry', CakePrice: '₹249', CakeMRPPrice: '₹349',),
+                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
+                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
+                  ],
+                ),
+              ],
+
+            ),
           ],
         ),
       );
@@ -157,9 +195,10 @@ class CakeCardDesign extends StatelessWidget{
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12), // Rounded corners
         ),
+        clipBehavior: Clip.antiAlias,
         child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: child,
+            padding: EdgeInsets.all(8.0),
+            child: child,
         ),
     );
   }
@@ -174,14 +213,15 @@ class CakeCardSize extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return SizedBox(
-      width: 130,
+      width: 120,
       height: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ClipRect(
-           // borderRadius: BorderRadius.circular(8),
+          ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(8),
             child: Image.asset(
               imagePath,
               width: 120,
@@ -189,22 +229,138 @@ class CakeCardSize extends StatelessWidget {
               fit: BoxFit.cover, // Keeps image size uniform
             ),
           ),
-        //  Image(image: AssetImage(imagePath)),
-          const SizedBox(height: 8),
-          Text(CakeName, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.start
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8),
+              Text(CakeName, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.start
               ),
-          const SizedBox(height: 4),
-          Text(CakePrice, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.start
+             // const SizedBox(height: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(CakePrice, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start
+                  ),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_outline_rounded))
+                ],
               ),
+            ],
+          ),
         ],
       ),
     );
   }
 }
 
+class CakeCatCard extends StatelessWidget{
+  const CakeCatCard({super.key, required this.CatName});
+  final String CatName;
+
+  @override
+  Widget build(BuildContext context){
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      elevation: 4,
+      color: Colors.amber.shade200,
+      child: SizedBox(
+        width: 100,
+        height: 50,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(CatName),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AllProducts extends StatelessWidget{
+  const AllProducts({super.key, required this.imagePath, required this.CakeName, required this.CakePrice, required this.CakeMRPPrice});
+  final String imagePath;
+  final String CakeName;
+  final String CakePrice;
+  final String CakeMRPPrice;
+
+  @override
+  Widget build(BuildContext context){
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 4,
+        color: Colors.deepOrangeAccent.shade100,
+        clipBehavior: Clip.antiAlias,
+      child: SizedBox(
+        width: 180,
+        height: 180,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              imagePath,
+              width: 180,
+              height: 180,
+              fit: BoxFit.cover,
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    CakeName,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            CakePrice,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                          ),
+                          Text(
+                            CakeMRPPrice,
+                            style: TextStyle(fontWeight: FontWeight.normal, decoration: TextDecoration.lineThrough,
+                                decorationColor: Colors.amber,
+                                decorationThickness: 4
+                              //  color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_outline_rounded))
+                    ],
+                  ),
+                ],
+
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+  }
+}
+
 class OrdersPage extends StatelessWidget {
+  const OrdersPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(child: Text("📦 Orders Page"));
@@ -212,6 +368,8 @@ class OrdersPage extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(child: Text("👤 Profile Page"));
