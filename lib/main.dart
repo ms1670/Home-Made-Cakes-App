@@ -81,30 +81,28 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         //  mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget> [
-            SubHeading(SubHeadingText: "Categories",),
+            SubHeading(SubHeadingText: "Sort Your Favourite",),
 
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CakeCatCard(CatName: "Kids"),
-                  CakeCatCard(CatName: "Cup Cake"),
-                  CakeCatCard(CatName: "Chocolate"),
-                  CakeCatCard(CatName: "Strawberry"),
-                  CakeCatCard(CatName: "Vennila"),
-                  CakeCatCard(CatName: "Starts"),
-                  CakeCatCard(CatName: "Butter"),
+                  ...cakeTypeList.map((name) => CakeTypeCard(typeName: name.typeName)),
                 ],
+
               ),
             ),
-
+            SizedBox(height: 8),
+            SubHeading(SubHeadingText: "Categories",),
             SizedBox(height: 8),
             SubHeading(SubHeadingText: "Popular Cakes"),
             SingleChildScrollView(
@@ -148,19 +146,34 @@ class HomePage extends StatelessWidget {
               children: [
                 GridView.count(
                   crossAxisCount: 2,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
                   mainAxisSpacing: 4,
                   crossAxisSpacing: 4,
                   childAspectRatio: 0.65,
-                  children: [
-                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Chocolate', CakePrice: '₹299', CakeMRPPrice: '₹349',),
-                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Vanilla', CakePrice: '₹199', CakeMRPPrice: '₹349',),
-                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Strawberry', CakePrice: '₹249', CakeMRPPrice: '₹349',),
-                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
-                    AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
-                  ],
-                ),
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(), // Allow scrolling
+                  children: exploreCakesList.map((cake) => AllProducts(
+                  imagePath: cake.imagePath,
+                    CakeName: cake.cakeName,
+                    CakePrice: cake.cakePrice,
+                    CakeMRPPrice: cake.cakeMRPPrice,
+                  )).toList(),
+                )
+
+                // GridView.count(
+                //   crossAxisCount: 2,
+                //   shrinkWrap: true,
+                //   physics: NeverScrollableScrollPhysics(),
+                //   mainAxisSpacing: 4,
+                //   crossAxisSpacing: 4,
+                //   childAspectRatio: 0.65,
+                //   children: [
+                //     AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Chocolate', CakePrice: '₹299', CakeMRPPrice: '₹349',),
+                //     AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Vanilla', CakePrice: '₹199', CakeMRPPrice: '₹349',),
+                //     AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Strawberry', CakePrice: '₹249', CakeMRPPrice: '₹349',),
+                //     AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
+                //     AllProducts(imagePath: 'assets/pink_cake.jpg', CakeName: 'Black Forest', CakePrice: '₹349', CakeMRPPrice: '₹449',),
+                //   ],
+                // ),
               ],
             ),
           ],
@@ -255,9 +268,9 @@ class CakeCardSize extends StatelessWidget {
   }
 }
 
-class CakeCatCard extends StatelessWidget{
-  const CakeCatCard({super.key, required this.CatName});
-  final String CatName;
+class CakeTypeCard extends StatelessWidget{
+  const CakeTypeCard({super.key, required this.typeName});
+  final String typeName;
 
   @override
   Widget build(BuildContext context){
@@ -276,7 +289,7 @@ class CakeCatCard extends StatelessWidget{
           children: [
             Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(CatName),
+              child: Text(typeName),
             ),
           ],
         ),
@@ -284,6 +297,24 @@ class CakeCatCard extends StatelessWidget{
     );
   }
 }
+
+class CakeType {
+  final String typeName;
+
+  CakeType({
+    required this.typeName
+  });
+}
+
+final List<CakeType> cakeTypeList = [
+  CakeType(typeName: "Kids"), //0
+  CakeType(typeName: "Chocolate"), //1
+  CakeType(typeName: "Vanilla"), //2
+  CakeType(typeName: "Pinata"), //3
+  CakeType(typeName: "Forest"), //4
+  CakeType(typeName: "Strawberry"), //5
+  CakeType(typeName: "Cup Cakes"), //6
+];
 
 class AllProducts extends StatelessWidget{
   const AllProducts({super.key, required this.imagePath, required this.CakeName, required this.CakePrice, required this.CakeMRPPrice});
@@ -324,6 +355,7 @@ class AllProducts extends StatelessWidget{
                   Text(
                     CakeName,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -349,16 +381,196 @@ class AllProducts extends StatelessWidget{
                     ],
                   ),
                 ],
-
               ),
             ),
           ],
         ),
       ),
     );
-
   }
 }
+
+class ExploreCakes {
+  final String imagePath;
+  final String cakeName;
+  final String cakePrice;
+  final String cakeMRPPrice;
+  final List<CakeType> tags;
+
+  ExploreCakes({
+    required this.imagePath,
+    required this.cakeName,
+    required this.cakePrice,
+    required this.cakeMRPPrice,
+    required this.tags,
+  });
+}
+
+final List<ExploreCakes> exploreCakesList = [
+  ExploreCakes(
+    //imagePath: 'assets/pineapple_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Pineapple Cake',
+    cakePrice: '₹299',
+    cakeMRPPrice: '₹329',
+    tags: [],
+  ),
+  ExploreCakes(
+    // imagePath: 'assets/butter_scotch_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Butter Scotch Cake',
+    cakePrice: '₹319',
+    cakeMRPPrice: '₹349',
+    tags: [cakeTypeList[0]],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/black_forest_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Black Forest Cake',
+    cakePrice: '₹349',
+    cakeMRPPrice: '₹379',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/mango_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Mango Cake',
+    cakePrice: '₹329',
+    cakeMRPPrice: '₹359',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/strawberry_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Strawberry Cake',
+    cakePrice: '₹319',
+    cakeMRPPrice: '₹349',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/choco_vanilla.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Choco Vanilla Cake',
+    cakePrice: '₹309',
+    cakeMRPPrice: '₹339',
+    tags: [cakeTypeList[0], cakeTypeList[1]],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/chocolate_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Chocolate Cake',
+    cakePrice: '₹349',
+    cakeMRPPrice: '₹389',
+    tags: [cakeTypeList[0], cakeTypeList[1]],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/red_velvet.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Red Velvet Cake',
+    cakePrice: '₹499',
+    cakeMRPPrice: '₹549',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/blueberry_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Blueberry Cake',
+    cakePrice: '₹529',
+    cakeMRPPrice: '₹569',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/fruit_fresh_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Fruit Fresh Cake',
+    cakePrice: '₹489',
+    cakeMRPPrice: '₹519',
+    tags: [],
+  ),
+  ExploreCakes(
+    imagePath: 'assets/white_forest_cake.jpg',
+    //imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'White Forest Cake',
+    cakePrice: '₹459',
+    cakeMRPPrice: '₹499',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/coffee_toffee.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Coffee Toffee Cake',
+    cakePrice: '₹519',
+    cakeMRPPrice: '₹549',
+    tags: [],
+  ),
+  ExploreCakes(
+   //imagePath: 'assets/choco_truffle.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Chocolate Truffle',
+    cakePrice: '₹549',
+    cakeMRPPrice: '₹579',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/german_forest.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'German Forest Cake',
+    cakePrice: '₹539',
+    cakeMRPPrice: '₹579',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/rasmalai_desi.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Rasmalai Desi Cake',
+    cakePrice: '₹599',
+    cakeMRPPrice: '₹649',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/choco_overloaded.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Chocolate Overloaded',
+    cakePrice: '₹600',
+    cakeMRPPrice: '₹649',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/gulab_jamun.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Gulab Jamun Cake',
+    cakePrice: '₹579',
+    cakeMRPPrice: '₹619',
+    tags: [],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/kitkat_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'KitKat Cake',
+    cakePrice: '₹549',
+    cakeMRPPrice: '₹579',
+    tags: [cakeTypeList[0]],
+  ),
+  ExploreCakes(
+    //imagePath: 'assets/oreo_chocolate.jpg',
+    imagePath: 'assets/pink_cake.jpg',
+    cakeName: 'Oreo Chocolate Cake',
+    cakePrice: '₹559',
+    cakeMRPPrice: '₹589',
+    tags: [cakeTypeList[0]],
+  ),
+
+
+];
+
+List<ExploreCakes> filterCakesByCategory(String selectedTypeName) {
+  return exploreCakesList
+      .where((cake) => cake.tags.contains(selectedTypeName))
+      .toList();
+}
+
+
+
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
@@ -647,7 +859,6 @@ class AllReviewsPage extends StatelessWidget {
     );
   }
 }
-
 
 class SampleProfileReviews extends StatelessWidget{
   const SampleProfileReviews({super.key, required this.UserReview, required this.BrandName, required this.BrandLogo});
