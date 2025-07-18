@@ -443,6 +443,8 @@ class HomePage extends StatelessWidget {
             SubHeading(SubHeadingText: "Categories",),
             SizedBox(height: 8),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GridView.count(
                   crossAxisCount: 3,
@@ -451,7 +453,6 @@ class HomePage extends StatelessWidget {
                   //  childAspectRatio: 0.65,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
-              //children: exploreCakesList.map((cake) => AllProducts( CakeCategoriesCard
                   children: [
                     ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
                   ],
@@ -963,11 +964,7 @@ class CakeCategoriesCard extends StatelessWidget{
       elevation: 4,
       color: AppColors.background1,
       clipBehavior: Clip.antiAlias,
-      margin: EdgeInsets.all(12),
-      // child: SizedBox(
-      //   height: 100,
-      //   width: 100,
-      // ),
+      margin: EdgeInsets.all(8),
       child: Padding(
         padding: EdgeInsets.all(0),
         child: Stack(
@@ -996,13 +993,13 @@ class CakeCategoriesCard extends StatelessWidget{
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.5),
                     Colors.transparent,
                   ],
                 ),
               ),
               child: Text(
-                CatName.toUpperCase(),
+                CatName,
                 // style: const TextStyle(
                 //   color: Colors.white,
                 //   fontWeight: FontWeight.bold,
@@ -1066,12 +1063,11 @@ class CatNames{
 }
 
 final List<CatNames> catNamesList = [
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
-  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Birthday", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Wedding", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Festival", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Anniversary", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Kids", imagePath: 'assets/pink_cake.jpg'),
 ];
 
 
