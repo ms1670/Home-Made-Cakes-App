@@ -442,23 +442,63 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 8),
             SubHeading(SubHeadingText: "Categories",),
             SizedBox(height: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GridView.count(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
-                  //  childAspectRatio: 0.65,
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
-                  ],
+
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Wrap(
+                    alignment: WrapAlignment.center, // 🔥 This centers each row
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: catNamesList.map((cake) {
+                      return SizedBox(
+                        height: 120,
+                        width: MediaQuery.of(context).size.width / 3 - 20, // approximate 3 columns
+                        child: CakeCategoriesCard(
+                          CatName: cake.CatName,
+                          imagePath: cake.imagePath,
+                        ),
+                      );
+                    }).toList(),
                   )
-              ],
+                ],
+              ),
             ),
+
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     GridView.count(
+            //       crossAxisCount: 3,
+            //       mainAxisSpacing: 4,
+            //       crossAxisSpacing: 4,
+            //       //  childAspectRatio: 0.65,
+            //       shrinkWrap: true,
+            //       physics: BouncingScrollPhysics(),
+            //       children: [
+            //         ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
+            //       ],
+            //       )
+            //   ],
+            // ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     Wrap(
+            //       alignment: WrapAlignment.center, // 💡 Center items in each row
+            //       spacing: 8,
+            //       runSpacing: 8,
+            //       children: catNamesList
+            //           .map((cake) => CakeCategoriesCard(
+            //         CatName: cake.CatName,
+            //         imagePath: cake.imagePath,
+            //       ))
+            //           .toList(),
+            //     )
+            //   ],
+            // ),
+
             SizedBox(height: 8),
             SubHeading(SubHeadingText: "Popular Cakes"),
             SingleChildScrollView(
