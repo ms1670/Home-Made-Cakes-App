@@ -451,14 +451,11 @@ class HomePage extends StatelessWidget {
                   //  childAspectRatio: 0.65,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
+              //children: exploreCakesList.map((cake) => AllProducts( CakeCategoriesCard
                   children: [
-                    CakeCategoriesCard(CatName: "Sample", imagePath: 'assets/pink_cake.jpg',),
-                    CakeCategoriesCard(CatName: "Sample", imagePath: 'assets/pink_cake.jpg',),
-                    CakeCategoriesCard(CatName: "Sample", imagePath: 'assets/pink_cake.jpg',),
-                    CakeCategoriesCard(CatName: "Sample", imagePath: 'assets/pink_cake.jpg',),
-                    CakeCategoriesCard(CatName: "Sample", imagePath: 'assets/pink_cake.jpg',),
+                    ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
                   ],
-                ),
+                  )
               ],
             ),
             SizedBox(height: 8),
@@ -1012,7 +1009,7 @@ class CakeCategoriesCard extends StatelessWidget{
                 //   fontSize: 14,
                 // ),
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.back,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                   shadows: [
@@ -1058,7 +1055,24 @@ class CakeCategoriesCard extends StatelessWidget{
   }
 }
 
+class CatNames{
+  final String CatName;
+  final String imagePath;
 
+  CatNames({
+        required this.CatName,
+        required this.imagePath,
+      });
+}
+
+final List<CatNames> catNamesList = [
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+  CatNames(CatName: "Chocolate", imagePath: 'assets/pink_cake.jpg'),
+];
 
 
 // Order Page
