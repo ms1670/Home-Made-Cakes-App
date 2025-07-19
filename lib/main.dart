@@ -443,45 +443,46 @@ class HomePage extends StatelessWidget {
             SubHeading(SubHeadingText: "Categories",),
             SizedBox(height: 8),
 
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Wrap(
-                    alignment: WrapAlignment.center, // 🔥 This centers each row
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: catNamesList.map((cake) {
-                      return SizedBox(
-                        height: 120,
-                        width: MediaQuery.of(context).size.width / 3 - 20, // approximate 3 columns
-                        child: CakeCategoriesCard(
-                          CatName: cake.CatName,
-                          imagePath: cake.imagePath,
-                        ),
-                      );
-                    }).toList(),
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //       Wrap(
+            //         alignment: WrapAlignment.center, // 🔥 This centers each row
+            //         spacing: 12,
+            //         runSpacing: 12,
+            //         children: catNamesList.map((cake) {
+            //           return SizedBox(
+            //             height: 120,
+            //             //width: MediaQuery.of(context).size.width / 3 - 20, // approximate 3 columns
+            //             child: CakeCategoriesCard(
+            //               CatName: cake.CatName,
+            //               imagePath: cake.imagePath,
+            //             ),
+            //           );
+            //         }).toList(),
+            //       )
+            //     ],
+            //   ),
+            // ),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4,
+                  //  childAspectRatio: 0.65,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
+                  ],
                   )
-                ],
-              ),
+              ],
             ),
 
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     GridView.count(
-            //       crossAxisCount: 3,
-            //       mainAxisSpacing: 4,
-            //       crossAxisSpacing: 4,
-            //       //  childAspectRatio: 0.65,
-            //       shrinkWrap: true,
-            //       physics: BouncingScrollPhysics(),
-            //       children: [
-            //         ...catNamesList.map((cake) => CakeCategoriesCard(CatName: cake.CatName, imagePath: cake.imagePath))
-            //       ],
-            //       )
-            //   ],
-            // ),
             // Column(
             //   crossAxisAlignment: CrossAxisAlignment.center,
             //   children: [
@@ -799,7 +800,36 @@ class AllProducts extends StatelessWidget{
                           )
                         ],
                       ),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_outline_rounded))
+                      // IconButton(onPressed: () {},
+                      //     icon: Icon(Icons.add_circle_outline_rounded),
+                      //     highlightColor: AppColors.primary,
+                      // )
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                        //  color: Colors.amber,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add),
+                          iconSize: 30.0,
+                          color: AppColors.primary,
+                          highlightColor: Colors.orange,
+                          //splashColor: Colors.green,
+                          splashRadius: 24.0,
+                          tooltip: 'Add item',
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(8),
+                          constraints: BoxConstraints(
+                            minWidth: 48,
+                            minHeight: 48,
+                          ),
+                        )
+                      )
+
+
                     ],
                   ),
                 ],
@@ -910,8 +940,8 @@ final List<ExploreCakes> exploreCakesList = [
     tags: [],
   ),
   ExploreCakes(
-    imagePath: 'assets/white_forest_cake.jpg',
-    //imagePath: 'assets/pink_cake.jpg',
+    //imagePath: 'assets/white_forest_cake.jpg',
+    imagePath: 'assets/pink_cake.jpg',
     cakeName: 'White Forest Cake',
     cakePrice: '₹459',
     cakeMRPPrice: '₹499',
