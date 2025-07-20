@@ -682,7 +682,8 @@ class CakeTypeCard extends StatelessWidget{
         ),
       elevation: 4,
     //  color: Colors.amber.shade200,
-      color: AppColors.accentColor,
+     // color: AppColors.accentColor,
+      color: AppColors.cardColor,
       clipBehavior: Clip.hardEdge, // clips content inside the card
       child: SizedBox(
         //width: 100,
@@ -1160,7 +1161,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
     //  backgroundColor: Colors.amber.shade50,
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.back,
       body: SingleChildScrollView(
         child: Padding (padding: EdgeInsets.all(8),
               child: Column(
@@ -1276,7 +1277,8 @@ class ProReviewCard extends StatelessWidget{
       ),
       elevation: 2,
      // color: Colors.green.shade100,
-      color: AppColors.secondary,
+      //color: AppColors.secondary,
+      color: AppColors.cardBackground,
       shadowColor: AppColors.shadowColor,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -1448,7 +1450,8 @@ class SampleProfileReviews extends StatelessWidget{
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 2,
-      color: AppColors.secondaryBackground,
+      color: AppColors.back,
+     // color: AppColors.secondaryBackground,
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.86,
         height: 100,
