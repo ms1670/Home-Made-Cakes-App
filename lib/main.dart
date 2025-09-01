@@ -4,7 +4,7 @@ import 'pages/HomePage.dart';
 import 'recourse/AppColors.dart';
 import 'pages/OrderPage.dart';
 import 'pages/ProfilePage.dart';
-
+import 'pages/MenuPage.dart';
 
 void main(){
    runApp(CakeApp());
@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage>{
 
   final List<Widget> _pages = [
       HomePage(),
+      MenuPage(),
       OrdersPage(),
       ProfilePage(),
   ];
@@ -192,7 +193,8 @@ class _MainPageState extends State<MainPage>{
 
       appBar: AppBar(
         backgroundColor: AppColors.primary,
-       // foregroundColor: Colors.white,
+        //backgroundColor: AppColors.secondary,
+        foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         scrolledUnderElevation: 4,
@@ -246,14 +248,15 @@ class _MainPageState extends State<MainPage>{
         actions: [
           Padding(padding: const EdgeInsets.only(right: 16),
           child: IconButton(
-            icon: Icon(Icons.filter_list, color: AppColors.background, size: 32,),
+            icon: Icon(Icons.filter_list, color: AppColors.background1, size: 32,),
             onPressed: () {},
-          ),
+            ),
           ),
         ],
       ),
 
       body: _pages[_currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int newIndex){
@@ -276,6 +279,10 @@ class _MainPageState extends State<MainPage>{
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'Menu',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),

@@ -3,7 +3,6 @@ import 'package:homemade_cakes_app/recourse/AppColors.dart';
 
 //Cake Type sort
 
-
 class CakeTypeCard extends StatelessWidget{
   const CakeTypeCard({super.key, required this.typeName, required this.leadingTypeIcon,});
   final String typeName;
@@ -13,7 +12,7 @@ class CakeTypeCard extends StatelessWidget{
   Widget build(BuildContext context){
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(16),
       ),
       elevation: 4,
       //  color: Colors.amber.shade200,
