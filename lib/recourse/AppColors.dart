@@ -55,8 +55,6 @@ class AppColors{
 // Secondary Text –
 
 // ADDITIONAL / OPTIONAL COLORS
-
-
 // static const Color bgPrimary       = Color(0xFFF8F6DD); // Light cream background – main background or card background
 // static const Color textPrimary    = Color(0xFF7D3800); // Dark brown – primary text (headings/titles)
 // static const Color accentGold     = Color(0xFFFCCD65); // Golden yellow – highlights, icons, or button accents
