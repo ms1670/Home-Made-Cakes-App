@@ -59,14 +59,14 @@ class AppColors{
 // static const Color textPrimary    = Color(0xFF7D3800); // Dark brown – primary text (headings/titles)
 // static const Color accentGold     = Color(0xFFFCCD65); // Golden yellow – highlights, icons, or button accents
 // static const Color accentOrange   = Color(0xFFA4530F); // Orange – buttons or call-to-action highlights
-//
+
 // static const Color brownLight     = Color(0xFFDF8935); // Light brown – secondary accents or hover states
 // static const Color brownMedium1   = Color(0xFFC86C23); // Mid brown – elevated buttons or emphasized cards
 // static const Color brownMedium2   = Color(0xFFCA6F26); // Another mid brown – warning labels or emphasized icons
 // static const Color brownDeep1     = Color(0xFF713B00); // Deep brown – shadows or border outlines
 // static const Color brownDeep2     = Color(0xFF723E00); // Another deep brown – dark backgrounds or footer
 // static const Color toastColor     = Color(0xFFD87730); // Toast orange – toast messages, alerts, or status tags
-//
+
 // static const Color yellowHoney    = Color(0xFFF1AF59); // Honey Yellow – progress bars, subtle highlights
 // static const Color brownAmber     = Color(0xFFD79237); // Amber Brown – chips, labels, and pill buttons
 // static const Color yellowBright   = Color(0xFFFFC068); // Bright Yellow – icons or tag background
